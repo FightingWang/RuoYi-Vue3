@@ -172,12 +172,16 @@
 </template>
 
 <script setup name="Dict">
+//导入字典全局数据存储 
 import useDictStore from '@/store/modules/dict'
+//导入字典接口方法
 import { listType, getType, delType, addType, updateType, refreshCache } from "@/api/system/dict/type";
 
+//获取绑定全局内容对象方法，以获取全局缓存
 const { proxy } = getCurrentInstance();
 const { sys_normal_disable } = proxy.useDict("sys_normal_disable");
 
+//定义页面响应式字段 使用ref
 const typeList = ref([]);
 const open = ref(false);
 const loading = ref(true);
@@ -189,6 +193,7 @@ const total = ref(0);
 const title = ref("");
 const dateRange = ref([]);
 
+//响应式对象用reactive()
 const data = reactive({
   form: {},
   queryParams: {
@@ -203,7 +208,7 @@ const data = reactive({
     dictType: [{ required: true, message: "字典类型不能为空", trigger: "blur" }]
   },
 });
-
+//将对象中的属性转为响应式数据
 const { queryParams, form, rules } = toRefs(data);
 
 /** 查询字典类型列表 */
